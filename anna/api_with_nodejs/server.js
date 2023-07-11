@@ -1,5 +1,4 @@
 const express = require('express');
-const nocache = require('nocache');
 const materielRoutes = require('./src/materiels/routes');
 
 const app = express();
@@ -18,9 +17,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(nocache());
-
 app.use(express.json());
-app.use('/api/v1/materiels', materielRoutes);
+app.use('/api/produits', materielRoutes);
 
 app.listen(port, () => console.log(`App écoute sur le port ${port}`));
