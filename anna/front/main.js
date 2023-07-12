@@ -9,7 +9,7 @@ function displayProducts(products) {
 }
 
 function fetchProducts() {
-    fetch('http://localhost:4000/api/v1/materiels/mode')
+    fetch('http://localhost:4000/api/produits/mode')
     
     .then((response) => response.json())
     .then((data) => {
