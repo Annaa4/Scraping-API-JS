@@ -1,16 +1,19 @@
 const { Router } = require('express');
-const controller = require('./controller');
 
 const router = Router();
+const controller = require('./controller')
+// Routes pour le service "materiel"
+router.get('/:table', controller.getServices);
+router.get('/:table/:id', controller.getServiceMaterielsById);
+router.post('/:table', controller.AddElementService);
+router.delete('/:table/:id', controller.removeServiceMateriel);
+router.put('/:table/:id', controller.updateServiceMateriel);
 
-// router.get('/', (req, res) => {
-//     res.send("utilisation de la route de l\tapi");
-// })
-router.get("/", controller.getMateriels);  
-router.post("/", controller.addMateriel);
-router.get("/:id", controller.getMaterielsById);
-router.delete("/:id", controller.removeMateriels);
+// // Routes pour le service "mode"
+// router.get('/mode', getServiceMateriels('mode'));
+// router.get('/mode/:id', getServiceMaterielsById('mode'));
+// router.post('/mode', addServiceMateriel('mode'));
+// router.delete('/mode/:id', removeServiceMateriel('mode'));
+// router.put('/mode/:id', updateServiceMateriel('mode'));
 
-
-
-module.exports = router; 
+module.exports = router;
