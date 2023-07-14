@@ -1,11 +1,12 @@
   const Pool = require('pg').Pool;
+  const id_data= require('./db_const')
 
   const pool = new Pool({
-    user: "anna",
-    host: "postgresql-134127-0.cloudclusters.net",
-    database: "data-api",
-    password: "12345678",
-    port:"19529"
+    user: id_data.USER,
+    host: id_data.HOST,
+    database: id_data.DB,
+    password: id_data.PASS,
+    port:id_data.PORT
   })
 
   module.exports = pool;
