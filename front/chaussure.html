@@ -35,6 +35,38 @@
       <link rel="stylesheet" href="css/owl.carousel.min.css">
       <link rel="stylesoeet" href="css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <script>
+         const url="http://localhost:4000/api/produits/articles_chaussure"
+         getProducts(url)
+         async function getProducts(url) {
+  const response = await fetch(url);
+  const data = await response.json();
+
+ 
+  const productRow = document.getElementById('productRow');
+
+  data.forEach((product) => {
+    const productCard = document.createElement('div');
+    productCard.classList.add('col-lg-4', 'col-sm-4');
+    productCard.innerHTML = `
+      <div class="box_main">
+        <h4 class="shirt_text">${product.name}</h4>
+        <p class="price_text">Start Price  <span style="color: #262626;">$ ${product.price}</span></p>
+        <div class="electronic_img"><img src="${product.image}" alt=""></div>
+        <div class="btn_main">
+          <div class="buy_bt"><a href="#">Buy Now</a></div>
+          <div class="seemore_bt"><a href="#">See More</a></div>
+        </div>
+      </div>
+    `;
+
+    productRow.appendChild(productCard);
+  });
+}
+
+      </script>
+  
+  
    </head>
    <body>
       <!-- banner bg main start -->
@@ -146,7 +178,7 @@
                      <div class="carousel-item">
                         <div class="row">
                            <div class="col-sm-12">
-                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                              <h1 class="banner_taital">commencer <br>Your favriot shoping</h1>
                               <div class="buynow_bt"><a href="#">Buy Now</a></div>
                            </div>
                         </div>
@@ -154,7 +186,7 @@
                      <div class="carousel-item">
                         <div class="row">
                            <div class="col-sm-12">
-                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                              <h1 class="banner_taital">Tambali <br>Your favriot shoping</h1>
                               <div class="buynow_bt"><a href="#">Buy Now</a></div>
                            </div>
                         </div>
@@ -174,6 +206,17 @@
       <!-- banner bg main end -->
       <!-- electronic section start -->
       <div class="fashion_section">
+         <div class="container">
+           <h1 class="fashion_taital">Electronic</h1>
+           <div class="fashion_section_2">
+            <div class="row" id="productRow">
+
+            </div>
+           </div>
+         </div>
+       </div>
+       
+      <!-- <div class="fashion_section">
          <div id="electronic_main_slider" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                <div class="carousel-item active">
@@ -182,43 +225,27 @@
                      <div class="fashion_section_2">
                         <div class="row">
                            <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Laptop</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
+                             
                            </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Mobile</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Computers</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
+                           
                         </div>
                      </div>
                   </div>
                </div>
                <div class="carousel-item">
+                  <div class="container">
+                     <h1 class="fashion_taital">Electronic</h1>
+                     <div class="fashion_section_2">
+                        <div class="row">
+                           <div class="col-lg-4 col-sm-4">
+                              
+                           </div>
+                           
+                        </div>
+                     </div>
+                  </div>
+               </div> -->
+               <!-- <div class="carousel-item">
                   <div class="container">
                      <h1 class="fashion_taital">Electronic</h1>
                      <div class="fashion_section_2">
@@ -259,49 +286,7 @@
                         </div>
                      </div>
                   </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="fashion_taital">Electronic</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Laptop</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Mobile</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Computers</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+               </div> -->
             </div>
             <a class="carousel-control-prev" href="#electronic_main_slider" role="button" data-slide="prev">
             <i class="fa fa-angle-left"></i>
