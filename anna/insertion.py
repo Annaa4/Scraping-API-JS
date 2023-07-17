@@ -3,7 +3,7 @@ import psycopg2
 with open('dakardiscount.json') as file:
     data = json.load(file)
 # connexion la connexion à la base de données
-conn = psycopg2.connect(database="data-api", user="anna", password="12345678", host="postgresql-134127-0.cloudclusters.net", port="19529")
+conn = psycopg2.connect(database="data_api", user="anna", password="12345678", host="postgresql-136064-0.cloudclusters.net", port="19824")
 
 # Créer un curseur pour exécuter des requêtes
 cur = conn.cursor()
