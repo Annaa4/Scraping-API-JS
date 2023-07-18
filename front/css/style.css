@@ -214,7 +214,7 @@ button {
 .banner_bg_main {
     width: 100%;
     float: left;
-    background-image: url(../images/banner-bg.png);
+    background-image: url(../images/slider-bg.jpg);
     height: auto;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -229,7 +229,7 @@ button {
 .header_section_top {
     width: 100%;
     float: left;
-    background-color: #2b2a29;
+    background-color:#f26522;
     clip-path: polygon(0 0, 100% 0, 96% 100%, 3% 100%);
     height: auto;
     padding: 10px 0px;
@@ -305,7 +305,7 @@ button {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #f26522;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -321,7 +321,8 @@ button {
 }
 
 .sidenav a:hover {
-    color: #f26522;
+  font-weight: bold;
+  color: white;
 }
 
 .sidenav .closebtn {
@@ -499,11 +500,11 @@ a:hover {
 }
 
 .buynow_bt a {
-    width: 100%;
+    width: 120%;
     float: left;
     font-size: 16px;
     color: #ffffff;
-    background-color: #252525;
+    background-color:#f26522;
     text-align: center;
     padding: 10px 0px;
     border-radius: 5px;
@@ -955,3 +956,28 @@ input.mail_bt::placeholder {
 
 
 /* copyright section end */
+
+
+/* login CSS */
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    }
+    
+    @media (min-width: 768px) {
+    .gradient-form {
+    height: 100vh !important;
+    }
+    }
+    @media (min-width: 769px) {
+    .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    }
+    }
