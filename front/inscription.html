@@ -164,30 +164,24 @@
             <h4 class="mt-1 mb-5 pb-1">For All</h4>
             </div>
             <form>
-            <p>Veuillez vous inscrire</p>
-            <div class="form-outline mb-4">
-            <input type="email" id="form2Example11" class="form-control" placeholder="Nom" />
-            <!-- <label class="form-label" for="form2Example11">Nom d'utilisateur</label> -->
-            </div>
-            <div class="form-outline mb-4">
-               <input type="password" id="form2Example12" class="form-control"  placeholder="Prenom"/>
-            </div>
-            <div class="form-outline mb-4">
-               <input type="password" id="form2Example12" class="form-control"  placeholder="Nom d'utilisateur"/>
-            </div>
-            <div class="form-outline mb-4">
-               <input type="password" id="form2Example13" class="form-control"  placeholder="Mot de passe "/>
-            </div>
-            <div class="form-outline mb-4">
-               <input type="password" id="form2Example14" class="form-control"  placeholder="Confirmez mot de passe"/>
-            </div>
-            <div class="text-center pt-1 mb-5 pb-1">
-            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">Inscription</button>
-            </div>
-            <div class="d-flex align-items-center justify-content-center pb-4">
-            <p class="mb-0 me-2">Vous avez déjà un compte ?</p>
-            <button type="button" class="btn btn-outline-danger">Connexion</button>
-            </div>
+               <p>Veuillez vous inscrire</p>
+               
+               
+               <div class="form-outline mb-4">
+                  <input type="" id="username" class="form-control"  placeholder="Nom d'utilisateur"/>
+               </div>
+               <div class="form-outline mb-4">
+                  <input type="password" id="password" class="form-control"  placeholder="Mot de passe "/>
+               </div>
+               
+               
+               <div class="text-center pt-1 mb-5 pb-1">
+               <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Inscription</button>
+               </div>
+               <div class="d-flex align-items-center justify-content-center pb-4">
+               <p class="mb-0 me-2">Vous avez déjà un compte ?</p>
+               
+               </div>
             </form>
             </div>
             </div>
@@ -236,6 +230,37 @@
    </div>
    <!-- copyright section end -->
    <!-- Javascript files-->
+   <script>
+            const form = document.querySelector('form')
+            const username = document.querySelector('#username')
+            const password = document.querySelector('#password')
+            const display = document.querySelector('.error')
+            form.addEventListener('submit', async (e) => {
+               e.preventDefault()
+               
+               try {
+               const res = await fetch('http://localhost:3000/api/auth/register', {
+               method: 'POST',
+               body: JSON.stringify({ username: username.value, password: password.value ,role:'basic'}),
+               headers: { 'Content-Type': 'application/json' }
+               })
+               const data = await res.json()
+               console.log(data)
+
+               window.location.href = '/home/wade/Bureau/Srapping_API_js/Scraping-API-JS/front/index.html'
+               
+            
+                  } catch (err) {
+                  console.log(err.message)
+                  }
+               })
+
+
+
+               
+   </script>
+
+
    <script src="js/jquery.min.js"></script>
    <script src="js/popper.min.js"></script>
    <script src="js/bootstrap.bundle.min.js"></script>

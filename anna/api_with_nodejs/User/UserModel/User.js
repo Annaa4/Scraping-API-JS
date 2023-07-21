@@ -7,7 +7,7 @@ User.create = async (username, password,role) => {
   const values = [username, password,role];
   const result = await pool.query(query, values);
   return result.rows[0];
-};
+  };
 
 User.findByUsernameAndPassword = async (username, password, role) => {
     const client = await pool.connect();
@@ -18,7 +18,7 @@ User.findByUsernameAndPassword = async (username, password, role) => {
   
     return result.rows[0];
   };
-  User.findByUsername= async (username) => {
+User.findByUsername= async (username) => {
     const client = await pool.connect();
     const query = 'SELECT * FROM users WHERE username = $1';
     const values = [username];
