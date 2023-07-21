@@ -5,162 +5,126 @@ async function getProducts(url) {
   const response = await fetch(url);
   const data = await response.json();
 
-  const tableBody = document.querySelector("tbody");
+  const productRow = document.getElementById('productRow');
 
   data.forEach((product) => {
-    const row = document.createElement("tr");
-    row.classList.add("editable-row");
-
-    const idCell = createEditableCell(product.id, "id");
-    const nameCell = createEditableCell(product.name, "name");
-    const priceCell = createEditableCell(product.price, "price");
-    const imgCell = createEditableCell("", "img"); // Laisser vide pour l'instant
-
-    row.appendChild(idCell);
-    row.appendChild(nameCell);
-    row.appendChild(priceCell);
-    row.appendChild(imgCell); // Ajouter la cellule d'image
-
-    const actionCell = createActionsCell(row);
-    row.appendChild(actionCell);
-
-    tableBody.appendChild(row);
+    const productCard = createProductCard(product);
+    productRow.appendChild(productCard);
   });
-}
 
-function createEditableCell(value, columnName) {
-  const cell = document.createElement("td");
-  const input = document.createElement("input");
-  input.classList.add("input-editable");
-  input.type = "text";
-  input.value = value;
+  function createProductCard(product) {
+    const productCard = document.createElement('div');
+    productCard.classList.add('col-lg-4', 'col-sm-4');
+    productCard.innerHTML = `
+      <div class="box_main">
+      <p class="bg-warning">${product.name}</p>
+        <h4 class="shirt_text text-truncate" contenteditable="false">${product.name}</h4>
+        <p class="price_text">Prix :   <span style="color: #262626;" contenteditable="false">${product.price}</span></p>
+        <div class="electronic_img"><img src="${product.image}" alt=""></div>
+        <div class="btn_main">
+          <div class="buy_bt"><a href="#" data-editable="false">Modifier</a></div>
+          <div class="seemore_bt"><a href="#">Supprimer</a></div>
+          <div class="save_bt" style="display: none;"><a href="#">Envoyer</a></div>
+          <div class="cancel_bt" style="display: none;"><a href="#">Annuler</a></div>
+        </div>
+      </div>
+      
+    `;
 
-  cell.appendChild(input);
-  cell.dataset.columnName = columnName; // Ajouter un attribut pour stocker le nom de la colonne
-  return cell;
-}
+    // Ajoutez ici la gestion des événements pour les boutons "Modifier" de chaque produit
+    const editButton = productCard.querySelector('.buy_bt a');
+    editButton.addEventListener('click', () => {
+      // Récupérer les éléments éditables du produit
+      const productNameElement = productCard.querySelector('.shirt_text');
+      const productPriceElement = productCard.querySelector('.price_text span');
 
-function createActionsCell(row) {
-  const cell = document.createElement("td");
+      // Rendre le nom et le prix éditables
+      productNameElement.contentEditable = true;
+      productPriceElement.contentEditable = true;
 
-  const sendButton = document.createElement("button");
-  sendButton.textContent = "Envoyer";
-  sendButton.classList.add("btn", "btn-primary", "btn-sm", "mr-2");
-  sendButton.addEventListener("click", async function() {
-    const rowData = getRowData(row);
-    console.log(JSON.stringify(rowData));
-  
-    try {
-      const productId = rowData.id;
-      const updateUrl = `http://localhost:4300/api/produits/mode/${productId}`;
-  
-      const response = await fetch(updateUrl, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(rowData)
+      // Masquer le bouton "Modifier" et afficher les boutons "Envoyer" et "Annuler"
+      editButton.dataset.editable = 'true';
+      const sendButton = productCard.querySelector('.save_bt');
+      const cancelButton = productCard.querySelector('.cancel_bt');
+      sendButton.style.display = 'inline-block';
+      cancelButton.style.display = 'inline-block';
+
+      // Focus sur le nom du produit pour faciliter l'édition
+      productNameElement.focus();
+
+      // Ajoutez ici les instructions pour gérer les modifications et les mises à jour des produits
+      // Vous pouvez utiliser les valeurs "productNameElement.textContent" et "productPriceElement.textContent" pour obtenir les nouvelles valeurs
+      // Lorsque l'utilisateur clique sur "Envoyer", vous pouvez envoyer les modifications à l'endpoint pour mettre à jour le produit
+      // Lorsque l'utilisateur clique sur "Annuler", vous pouvez annuler les modifications en rétablissant les valeurs d'origine du produit
+
+      sendButton.addEventListener('click', async () => {
+        // Rendre les éléments non éditables
+        productNameElement.contentEditable = false;
+        productPriceElement.contentEditable = false;
+
+        // Masquer les boutons "Envoyer" et "Annuler" et afficher le bouton "Modifier"
+        editButton.dataset.editable = 'false';
+        sendButton.style.display = 'none';
+        cancelButton.style.display = 'none';
+
+        try {
+          const updatedProduct = {
+            id: product.id,
+            name: productNameElement.textContent,
+            price: productPriceElement.textContent
+          };
+
+          const updateUrl = `http://localhost:4300/api/produits/mode/${product.id}`;
+
+          const response = await fetch(updateUrl, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedProduct)
+          });
+
+          if (response.ok) {
+            console.log('Données du produit mises à jour avec succès !');
+            // Afficher une alerte verte pour indiquer la mise à jour réussie si nécessaire
+
+            // Mettre à jour les données dans le tableau avec les données renvoyées par l'API
+            const updatedData = await response.json();
+            // Mettez à jour l'affichage du produit avec les nouvelles valeurs si nécessaire
+            // Vous pouvez également mettre à jour la liste des produits en rechargeant la page
+            reloadPageWithDelay();
+          } else {
+            console.log('Erreur lors de la mise à jour des données du produit.');
+            // Afficher une alerte rouge pour indiquer une erreur de mise à jour si nécessaire
+          }
+        } catch (error) {
+          console.log('Une erreur s\'est produite :', error);
+          // Afficher une alerte rouge pour indiquer une erreur de mise à jour si nécessaire
+        }
       });
-  
-      if (response.ok) {
-        console.log("Données du produit mises à jour avec succès !");
-  
-        updateRowWithData(row, rowData); // Mettre à jour les données de la ligne avec les nouvelles données
-  
-        location.reload();
-      } else {
-        console.log("Erreur lors de la mise à jour des données du produit.");
-      }
-    } catch (error) {
-      console.log("Une erreur s'est produite :", error);
-    }
-  
-    disableEditableCells(row);
-    row.classList.remove("editing-row");
-  });
-  
-    
 
-  const cancelButton = document.createElement("button");
-  cancelButton.textContent = "Annuler";
-  cancelButton.classList.add("btn", "btn-secondary", "btn-sm");
-  cancelButton.addEventListener("click", function() {
-    resetEditableCells(row);
-    row.classList.remove("editing-row");
-  });
+      cancelButton.addEventListener('click', () => {
+        // Annuler les modifications en rétablissant les valeurs d'origine du produit
+        productNameElement.textContent = product.name;
+        productPriceElement.textContent = product.price;
 
-  cell.appendChild(sendButton);
-  cell.appendChild(cancelButton);
+        // Rendre les éléments non éditables
+        productNameElement.contentEditable = false;
+        productPriceElement.contentEditable = false;
 
-  // Masquer les boutons par défaut
-  sendButton.style.display = "none";
-  cancelButton.style.display = "none";
-
-  row.addEventListener("click", function() {
-    const otherRows = document.querySelectorAll(".editable-row");
-    otherRows.forEach(function(otherRow) {
-      const otherSendButton = otherRow.querySelector(".btn-primary");
-      const otherCancelButton = otherRow.querySelector(".btn-secondary");
-      otherSendButton.style.display = "none";
-      otherCancelButton.style.display = "none";
+        // Masquer les boutons "Envoyer" et "Annuler" et afficher le bouton "Modifier"
+        editButton.dataset.editable = 'false';
+        sendButton.style.display = 'none';
+        cancelButton.style.display = 'none';
+      });
     });
 
-    sendButton.style.display = "inline-block";
-    cancelButton.style.display = "inline-block";
-    row.classList.add("editing-row");
-  });
-
-  return cell;
-}
-
-
-function disableEditableCells(row) {
-  const inputs = row.querySelectorAll(".input-editable");
-
-  inputs.forEach(function(input) {
-    input.setAttribute("readonly", "readonly");
-  });
-}
-
-function resetEditableCells(row) {
-  const inputs = row.querySelectorAll(".input-editable");
-
-  inputs.forEach(function(input) {
-    input.removeAttribute("readonly");
-    input.value = input.dataset.originalValue;
-  });
-}
-
-function updateRowWithData(row, rowData) {
-  const cells = row.querySelectorAll("td");
-
-  cells.forEach(function(cell) {
-    const columnName = cell.dataset.columnName;
-    const updatedValue = rowData[columnName];
-
-    const input = cell.querySelector("input");
-    input.value = updatedValue;
-  });
-}
-
-function getRowData(row) {
-  const inputs = row.querySelectorAll(".input-editable");
-  const rowData = {};
-
-  inputs.forEach(function(input) {
-    const columnName = input.parentElement.dataset.columnName;
-    let value = input.value;
-
-    if (columnName === "id") {
-      value = parseInt(value);
-    }
-
-    rowData[columnName] = value;
-  });
-
-  if (!rowData.hasOwnProperty("img")) {
-    rowData["img"] = "";
+    return productCard;
   }
 
-  return rowData;
+  function reloadPageWithDelay() {
+    setTimeout(() => {
+      location.reload();
+    }, 1000); // Reloader la page après 1 seconde (ajustez le délai si nécessaire)
+  }
 }

@@ -11,7 +11,6 @@ const getServices = (req,res) => {
     
 };
 
-
 const getServiceMaterielsById = (req,res) => {
         const table = req.params.table;
         const id = parseInt(req.params.id);
@@ -20,7 +19,6 @@ const getServiceMaterielsById = (req,res) => {
             if (error) throw error;
             res.status(200).json(results.rows);
         });
-
 };
 
 const AddElementService = (req, res) => {
@@ -47,7 +45,6 @@ const AddElementService = (req, res) => {
 
 
 const removeServiceMateriel = (req,res) => {
-
         const table = req.params.table;
         const id = parseInt(req.params.id);
         const querie= queries.removeMateriels(table,id);
