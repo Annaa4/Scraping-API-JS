@@ -63,8 +63,8 @@ exports.login = async (req, res, next) => {
             const token = jwt.sign({username: user.username , id: user.id, role:user.role},jwtsecret,{expiresIn :'2h'} )
 
             res.cookie('jwt', token, 
-            { maxAge: 2 * 60 * 60 * 1000, 
-              httpOnly: true });
+            { maxAge: 2 * 60 * 60 * 1000 
+              });
 
 
             res.status(200).json({
@@ -85,6 +85,12 @@ exports.login = async (req, res, next) => {
       });
     }
   };
+
+
+  exports.logout =async(req, res) => {
+    res.cookie("jwt", "", { maxAge: "1" })
+    res.redirect("/")
+  }
   
 
   exports.deleteUser = async (req, res, next) => {
@@ -145,5 +151,6 @@ exports.adminAuth = (req, res, next) => {
       });
     } else {
       return res.status(401).json({ message: "Not authorized, token not available" });
+
     }
   };

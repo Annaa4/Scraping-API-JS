@@ -119,11 +119,11 @@
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Panier</span></a>
                            </li>
-                           <li><a href="connexion.html">
+                           <li><a href="http://localhost:3000/connect">
                               <i class="fa fa-user" aria-hidden="true"></i>
                               <span class="padding_10">Connexion</span></a>
                            </li>
-                           <li><a href="inscription.html">
+                           <li><a href="http://localhost:3000/ins">
                               <i class="fa fa-inscription" aria-hidden="true"></i>
                               <span class="padding_10">inscription</span></a>
                            </li>
@@ -142,28 +142,12 @@
                      <div class="carousel-item active">
                         <div class="row">
                            <div class="col-sm-12">
-                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                              <h1 class="banner_taital" id="welcomeTitle">Get Start <br>Your favriot shoping</h1>
                               <div class="buynow_bt"><a href="#">Acheter Maintenant</a></div>
                            </div>
                         </div>
                      </div>
-                     <div class="carousel-item">
-                        <div class="row">
-                           <div class="col-sm-12">
-                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                              <div class="buynow_bt"><a href="#">Acheter Maintenant</a></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="carousel-item">
-                        <div class="row">
-                           <div class="col-sm-12">
-                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                              <div class="buynow_bt"><a href="#">Acheter Maintenant</a></div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+                    
                   <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
                   <i class="fa fa-angle-left"></i>
                   </a>
@@ -635,6 +619,35 @@
       </div>
       <!-- copyright section end -->
       <!-- Javascript files-->
+
+
+      <script>
+
+            function getCookie(cookieName) {
+            const cookies = document.cookie.split(';');
+            for (const cookie of cookies) {
+               const [name, value] = cookie.trim().split('=');
+               if (name === cookieName) {
+                  return decodeURIComponent(value);
+               }
+            }
+            return null; // Retourner null si le cookie n'a pas été trouvé
+         }
+
+         const jwtToken = getCookie('jwt');
+            if (jwtToken) {
+               // Afficher les informations appropriées pour l'utilisateur connecté
+            
+               const decodedToken = JSON.parse(atob(jwtToken.split('.')[1]));
+               const username = decodedToken.username;
+               const welcomeTitle = document.querySelector('#welcomeTitle');
+               welcomeTitle.innerHTML = `Bienvenue, ${username} ! <br> <br> <br>`;
+            } else {
+               // Afficher le titre par défaut si l'utilisateur n'est pas connecté
+               const welcomeTitle = document.querySelector('#welcomeTitle');
+               welcomeTitle.innerHTML = 'Get start <br>Your favorite shopping';
+            }
+      </script>
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>

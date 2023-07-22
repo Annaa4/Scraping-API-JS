@@ -33,7 +33,7 @@ app.use(express.static('../../front'))
 
 app.set("view engine","ejs")
 
-app.get("/", (req, res) => res.render('home'));
+app.get("/", (req, res) => res.render('index'));
 app.get("/ins", (req, res) => res.render('inscription'))
 app.get("/connect", (req, res) => res.render('connexion'))
 
