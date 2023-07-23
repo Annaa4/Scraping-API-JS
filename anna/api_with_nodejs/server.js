@@ -19,5 +19,6 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use('/api/produits', materielRoutes);
+app.use("/api/auth", require("./User/UserAuth/UserRoute"))
 
 app.listen(port, () => console.log(`App écoute sur le port ${port}`));
