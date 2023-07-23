@@ -25,9 +25,12 @@ async function loginUser(username, password) {
 
         if (response.ok) {
             // La connexion réussit
-            alert('Connexion réussie !');
-            // Rediriger l'utilisateur vers la page "admin.html" après une connexion réussie
-            window.location.href = 'admin.html';
+            if (data.role === 'admin') {
+                // Rediriger l'utilisateur vers la page "admin.html" si le rôle est administrateur
+                window.location.href = 'admin.html';
+            } else {
+                alert('Vous n\'avez pas les droits d\'administrateur.');
+            }
         } else {
             // La connexion a échoué
             alert('Nom d\'utilisateur ou mot de passe incorrect !');
