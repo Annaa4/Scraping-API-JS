@@ -17,8 +17,7 @@ async function getProducts(url) {
     productCard.classList.add('col-lg-4', 'col-sm-4');
     productCard.innerHTML = `
       <div class="box_main">
-      <p class="bg-warning">${product.id}</p>
-        <h4 class="shirt_text text-truncate" contenteditable="false">${product.name}</h4>
+        <h4 class="shirt_text" contenteditable="false">${product.name}</h4>
         <p class="price_text">Prix :   <span style="color: #262626;" contenteditable="false">${product.price}</span></p>
         <div class="electronic_img"><img src="${product.image}" alt=""></div>
         <div class="btn_main">
