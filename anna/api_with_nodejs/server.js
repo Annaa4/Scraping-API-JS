@@ -26,6 +26,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api/produits', materielRoutes);
+app.use("/api/auth", require("./User/UserAuth/UserRoute"))
 
 app.use("/api/auth", require("./User/UserAuth/UserRoute"))
 

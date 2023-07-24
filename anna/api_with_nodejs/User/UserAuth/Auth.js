@@ -25,12 +25,20 @@ exports.register = async (req, res, next) => {
       httpOnly: true,
       // maxAge: 3000000 * 1000, // 3hrs in ms
     });
+  
+
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      // maxAge: 3000000 * 1000, // 3hrs in ms
+    });
 
     res.status(200).json({
       message: 'Utilaseur crée avec succé',
       user,
       token
     });
+    
+    
     
     
   } catch (error) {
@@ -73,6 +81,7 @@ exports.login = async (req, res, next) => {
               token
             });
             
+            
           } else {
             res.status(400).json({ message: "Login not successful" });
           }
@@ -97,7 +106,7 @@ exports.login = async (req, res, next) => {
     const { id } = req.body;
     try {
       const query = 'DELETE FROM users WHERE id = $1';
-      const values = [id];eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVsX3Jhd2FuZSIsImlkIjoyMSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg5ODA1ODI3LCJleHAiOjE2ODk4MTMwMjd9.bAHMMz65cxmoZCnOjkmDsR5mEkMXXjH-GKfyK7T1w1w
+      const values = [id];
       await pool.query(query, values);
       res.status(200).json({
         message: 'User successfully deleted',
@@ -109,6 +118,8 @@ exports.login = async (req, res, next) => {
       });
     }
   };
+
+
 
 
 exports.adminAuth = (req, res, next) => {
