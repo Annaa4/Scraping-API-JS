@@ -1,8 +1,12 @@
 const express = require('express');
 const materielRoutes = require('./src/materiels/routes');
+const{adminAuth,userAuth}=require('./User/UserAuth/Auth')
+const cookieParser = require("cookie-parser");
+
+
 
 const app = express();
-const port = 4000;
+const port = 4300;
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -18,6 +22,15 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+
+app.use(cookieParser());
+
 app.use('/api/produits', materielRoutes);
+app.use("/api/auth", require("./User/UserAuth/UserRoute"))
+
+app.use("/api/auth", require("./User/UserAuth/UserRoute"))
+
+app.get("/admin", adminAuth, (req, res) => res.send("Admin Route"));
+app.get("/basic", userAuth, (req, res) => res.send("User Route"));
 
 app.listen(port, () => console.log(`App écoute sur le port ${port}`));
