@@ -28,7 +28,11 @@ async function loginUser(username, password) {
             if (data.role === 'admin') {
                 // Rediriger l'utilisateur vers la page "admin.html" si le rôle est administrateur
                 window.location.href = 'admin.html';
-            } else {
+            }else if (data.role ==='editeur') {
+                // Rediriger l'utilisateur vers la page "editeur.html" si le rôle est éditeur
+                window.location.href = 'editeur.html';
+            }
+             else {
                 alert('Vous n\'avez pas les droits d\'administrateur.');
             }
         } else {
