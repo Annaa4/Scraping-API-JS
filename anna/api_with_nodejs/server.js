@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 
 
 const app = express();
-const port = 4000;
+const port = 4300;
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -26,6 +26,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api/produits', materielRoutes);
+app.use("/api/auth", require("./User/UserAuth/UserRoute"))
 
 app.use("/api/auth", require("./User/UserAuth/UserRoute"))
 
