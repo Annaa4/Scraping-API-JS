@@ -63,7 +63,7 @@
             <div class="container">
                <div class="row">
                   <div class="col-sm-12">
-                     <div class="logo"><a href="index.html"><img src="images/fa.png" style="width: 40%; margin-top: -80px; float: left; margin-left: -30px;"></a></div>
+                     <div class="logo"><a href="index.html"><img src="images/fa.png" style="width: 20%; margin-top: -40px; float: left; margin-left: -20px;"></a></div>
                   </div>
                </div>
             </div>
@@ -77,7 +77,7 @@
                      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                      <a href="index.html">Home</a>
                      <a href="mode.html">Mode & Beauté</a>
-                     <a href="chaussure.html">Chaussures</a>
+                     <a href="/chaussure">Chaussures</a>
                      <a href="materiel.html">Matériels Sport</a>
                   </div>
                   <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
@@ -119,13 +119,17 @@
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Panier</span></a>
                            </li>
-                           <li><a href="http://localhost:3000/connect">
+                           <li><a href="/connect">
                               <i class="fa fa-user" aria-hidden="true"></i>
                               <span class="padding_10">Connexion</span></a>
                            </li>
-                           <li><a href="http://localhost:3000/ins">
+                           <li><a href="/ins">
                               <i class="fa fa-inscription" aria-hidden="true"></i>
                               <span class="padding_10">inscription</span></a>
+                           </li>
+                           <li><a href="/logout">
+                              <i class="fa fa-inscription" aria-hidden="true"></i>
+                              <span class="padding_10">Deconnection</span></a>
                            </li>
                         </ul>
                      </div>
@@ -633,7 +637,7 @@
             }
             return null; // Retourner null si le cookie n'a pas été trouvé
          }
-
+         
          const jwtToken = getCookie('jwt');
             if (jwtToken) {
                // Afficher les informations appropriées pour l'utilisateur connecté
